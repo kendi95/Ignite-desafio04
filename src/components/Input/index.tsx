@@ -3,14 +3,24 @@ import {
   useRef,
   useState,
   useCallback,
+  JSXElementConstructor,
+  HTMLAttributes
 } from 'react';
 
 import { useField } from '@unform/core';
 
 import { Container } from './styles';
 
-const Input = ({ name, icon: Icon, ...rest }) => {
-  const inputRef = useRef(null);
+interface InputProps extends HTMLAttributes<HTMLInputElement> {
+  name: string;
+  icon?: JSXElementConstructor<{ size: number }>;
+}
+
+interface InputRefProps extends HTMLInputElement {
+}
+
+const Input = ({ name, icon: Icon, ...rest }: InputProps) => {
+  const inputRef = useRef<InputRefProps>(null);
 
   const [isFocused, setIsFocused] = useState(false);
   const [isFilled, setIsFilled] = useState(false);
